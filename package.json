@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/SnailSword/kangkang#readme",
   "dependencies": {
+    "commander": "^5.1.0",
     "fs-extra": "^9.0.1",
     "lodash": "^4.17.15"
   },

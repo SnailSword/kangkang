@@ -4,9 +4,9 @@
 ## usage
 
 ```
-kangkang # 查看当前项目的依赖(要有package.json)
 kangkang [packagename] # 查看某个发布了的npm包的依赖
 kangkang -h # 查看帮助
+kangkang --cache clean # 清除缓存文件
 ```
 
 ## todos
