@@ -1,3 +1,5 @@
+https://github.com/SnailSword/kangkang
+
 # kangkang 
 查看npm包的多级依赖(让我康康你到底依赖了啥)。
 
