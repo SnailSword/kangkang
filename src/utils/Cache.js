@@ -39,7 +39,9 @@ export default class Cache {
     }
 
     static clean() {
-        fs.writeFileSync(CACHE_FILE_NAME, '{}');
+        console.log('[cache clean]: start');
+        fs.writeFileSync(resolve(getHome(), CACHE_FILE_NAME), '{}');
+        console.log('[cache clean]: done');
     }
 
     setData(packageName, arr = []) {

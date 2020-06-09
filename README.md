@@ -2,11 +2,13 @@
 查看npm包的多级依赖(让我康康你到底依赖了啥)。
 
 ## usage
-
 ```
-kangkang [packagename] # 查看某个发布了的npm包的依赖
-kangkang -h # 查看帮助
-kangkang --cache clean # 清除缓存文件
+npm i
+npm run build
+
+node ./dist/index.js [packagename] # 查看某个发布了的npm包的依赖
+node ./dist/index.js -h # 查看帮助
+node ./dist/index.js cache clean # 清除缓存文件
 ```
 
 ## todos
@@ -28,3 +30,4 @@ kangkang --cache clean # 清除缓存文件
 - [ ] 可视化
 - [ ] 爬取和分析几种使用场景下的高频依赖 设置对应的预置缓存文件
 - [ ] 单测
+- [ ] 计时

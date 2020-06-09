@@ -1,21 +1,18 @@
+/**
+ * 显示依赖树的核心逻辑
+ */
+
 import _ from 'lodash';
 import {exec} from 'child_process'
 
 import Cache from '../utils/Cache';
 import {printTree} from '../utils/print';
+import {getCommond, getPackageName} from '../utils/format';
 
-const cache = new Cache('CacheFile');
+const cache = new Cache();
 
 
 cache.initCacheFromFile();
-const getPackageName = (version, name) => {
-    if (!version) {
-        return name;
-    }
-    return `"${name}@${version}"`;
-}
-
-const getCommond = packageName => `npm v -json ${packageName} dependencies`;
 
 export const generateData = packageName => {
     if (cache.has(packageName)) {
@@ -24,7 +21,7 @@ export const generateData = packageName => {
     return new Promise((resolve, reject) => {
         const end = () => resolve(cache);
         const cmdStr = getCommond(packageName);
-        console.log(cmdStr);
+        console.log(`fatching ${packageName}'s dependencies...`);
         exec(cmdStr, (err, stdout, stderr) => {
             if (err) {
                 // todo format error
@@ -45,7 +42,7 @@ export const generateData = packageName => {
                     const children = _.map(resultObj, getPackageName);
                     cache.setData(packageName, children);
                     const childrenExec = _.map(children, p => generateData(p));
-                    Promise.all(childrenExec).then(() => {
+                    return Promise.all(childrenExec).then(() => {
                         end();
                     });
                 }
@@ -59,11 +56,15 @@ export const generateData = packageName => {
 }
 
 const main = async packageName => {
+    console.log(`[data fetch]: start`);
     return generateData(packageName).then(cache => {
         console.log('[data fetch]: done');
-        console.log('=========');
-        console.log(`${packageName}'s dependencies:`);
+        console.log('\n=======================================');
+        console.log(`${packageName}'s dependencies:\n`);
         printTree(packageName, 0, cache, {});
+        // console.log('\n');
+        console.log('=======================================\n');
+        // todo 算完缓存不调用main也应该能写到缓存文件
         cache.write2File();
     });
 }
