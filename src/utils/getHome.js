@@ -8,7 +8,7 @@ import path from 'path'
 import fs from 'fs-extra'
 
 export default function getHome () {
-  let dir = path.resolve(process.env[os.platform() === 'win32' ? 'APPDATA' : 'HOME'], '.kangkang');
+  let dir = path.resolve(process.env[os.platform() === 'win32' ? 'APPDATA' : 'HOME'], '.npm-shovel');
   fs.ensureDirSync(dir)
 
   return dir;

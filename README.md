@@ -1,6 +1,6 @@
-https://github.com/SnailSword/kangkang
+https://github.com/SnailSword/npm-shovel
 
-# kangkang 
+# npm-shovel 
 查看npm包的多级依赖(让我康康你到底依赖了啥)。
 
 ## usage
