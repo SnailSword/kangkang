@@ -32,9 +32,6 @@ react's dependencies:
 ```
 npm i npm-shovel -g  # install
 
-npm-shovel [packagename] # 查看某个发布了的npm包的依赖
-npm-shovel cache clean # 清除缓存文件
-npm-shovel -h # 查看帮助
 ```
 
 查看`npm-shovel`的依赖树：
@@ -60,5 +57,15 @@ npm-shovel's dependencies:
 |    |--regenerator-runtime@^0.11.0
 |  |--lodash@^4.17.15
 ```
+
+## API
+
+```
+npm-shovel <packagename> # 查看某个npm包的依赖
+npm-shovel a b # 查看a到b的依赖路径
+npm-shovel cache clean # 清除缓存文件
+npm-shovel -h # 查看帮助
+```
+
 
 ## [todo](./todo.md)

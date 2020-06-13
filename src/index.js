@@ -4,23 +4,30 @@
 
 import commander from 'commander'
 
-import print from './commands/main';
+import print, {printPath} from './commands/main';
 import Cache from './utils/Cache';
 
 commander
-    .usage('<packageName>')
-    .arguments('<packageName>')
-    .action(async (packageName) => {
-        await print(packageName);
-    })
-
-commander.command('cache [operate]')
-    .action((operate) => {
-        switch (operate) {
-            case 'clean':
-                Cache.clean()
+    .usage('<rootPackageName> [targetPackageName]')
+    .arguments('<rootPackageName> [targetPackageName]')
+    .action(async (rootPackageName, targetPackageName) => {
+        if (targetPackageName) {
+            printPath(rootPackageName, targetPackageName);
+        }
+        else {
+            await print(rootPackageName);
         }
     })
+
+commander
+    .command('cache <cmd>')
+    .usage('<cmd>')
+    .action((cmd, command) => {
+        switch(cmd) {
+            case 'clean': 
+                Cache.clean();
+        }
+    });
 
 commander.parse(process.argv);
 

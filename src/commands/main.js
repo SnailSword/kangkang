@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {exec} from 'child_process'
 
 import Cache from '../utils/Cache';
-import {printTree} from '../utils/print';
+import {printTree, trackBackPrint} from '../utils/print';
 import {getCommond, getPackageName} from '../utils/format';
 
 const cache = new Cache();
@@ -55,18 +55,33 @@ export const generateData = packageName => {
     });
 }
 
-const main = async packageName => {
+export const generateDataAndWrite2Cache = packageName => {
     console.log(`[data fetch]: start`);
     return generateData(packageName).then(cache => {
         console.log('[data fetch]: done');
-        console.log('\n=======================================');
-        console.log(`${packageName}'s dependencies:\n`);
-        printTree(packageName, 0, cache, {});
-        // console.log('\n');
-        console.log('=======================================\n');
-        // todo 算完缓存不调用main也应该能写到缓存文件
         cache.write2File();
+        return cache;
     });
 }
 
+const main = async packageName => {
+    return generateDataAndWrite2Cache(packageName).then(cache => {
+        console.log('\n=======================================');
+        console.log(`\n${packageName}'s dependencies:\n`);
+        printTree(packageName, 0, cache, {});
+        console.log('=======================================\n');
+    });
+}
+
+export const printPath = async (rootPackageName, targetPackageName) => {
+    return generateDataAndWrite2Cache(rootPackageName)
+        .then(cache => {
+            console.log('\n=======================================');
+            console.log(`dependency paths from ${rootPackageName} to ${targetPackageName}:\n`);
+            trackBackPrint([rootPackageName], targetPackageName, cache);
+            console.log('=======================================\n');
+        });
+}
+
 export default main;
+
