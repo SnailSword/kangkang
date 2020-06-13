@@ -58,6 +58,22 @@ npm-shovel's dependencies:
 |  |--lodash@^4.17.15
 ```
 
+查看react到js-tokens的依赖路径：
+```
+npm-shovel react js-tokens
+```
+
+输出：
+```
+=======================================
+dependency paths from react to js-tokens:
+
+react <- "loose-envify@^1.1.0" <- "js-tokens@^3.0.0 || ^4.0.0"
+react <- "prop-types@^15.6.2" <- "loose-envify@^1.4.0" <- "js-tokens@^3.0.0 || ^4.0.0"
+=======================================
+```
+
+
 ## API
 
 ```
